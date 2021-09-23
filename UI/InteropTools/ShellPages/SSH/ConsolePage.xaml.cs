@@ -16,10 +16,7 @@ using InteropTools.Providers;
 using InteropTools.ShellPages.Core;
 using Renci.SshNet;
 using Renci.SshNet.Common;
-
-//using Shell = InteropTools.CorePages.Shell;
-using Shell = InteropTools.Shell;
-
+using Shell = InteropTools.CorePages.Shell;
 using Windows.ApplicationModel.Resources.Core;
 using InteropTools.CorePages;
 
@@ -44,18 +41,15 @@ namespace InteropTools.ShellPages.SSH
 		{
 			Window.Current.CoreWindow.CharacterReceived += CoreWindow_CharacterReceived;
 
-			/*
 			if (!await App.IsCMDSupported())
 			{
-				
 				await new InteropTools.ContentDialogs.Core.MessageDialogContentDialog().ShowMessageDialog(
 				  ResourceManager.Current.MainResourceMap.GetValue("Resources/In_order_to_use_this_page", ResourceContext.GetForCurrentView()).ValueAsString,
 				  ResourceManager.Current.MainResourceMap.GetValue("Resources/You_can_t_use_this_right_now", ResourceContext.GetForCurrentView()).ValueAsString);
-				//var shell = (Shell)App.AppContent;
-				//shell.RootFrame.Navigate(typeof(WelcomePage));
+				var shell = (Shell)App.AppContent;
+				shell.RootFrame.Navigate(typeof(WelcomePage));
 				return;
 			}
-			*/
 
 			RegTypes regtype;
 			string regvalue;
@@ -67,8 +61,8 @@ namespace InteropTools.ShellPages.SSH
 				await new InteropTools.ContentDialogs.Core.MessageDialogContentDialog().ShowMessageDialog(
 				  ResourceManager.Current.MainResourceMap.GetValue("Resources/In_order_to_use_this_page", ResourceContext.GetForCurrentView()).ValueAsString,
 				  ResourceManager.Current.MainResourceMap.GetValue("Resources/You_can_t_use_this_right_now", ResourceContext.GetForCurrentView()).ValueAsString);
-				//var shell = (Shell)App.AppContent;
-				//shell.RootFrame.Navigate(typeof(WelcomePage));
+				var shell = (Shell)App.AppContent;
+				shell.RootFrame.Navigate(typeof(WelcomePage));
 				return;
 			}
 
@@ -83,9 +77,9 @@ namespace InteropTools.ShellPages.SSH
 			{
 				try
 				{
-					//var client = App.SshClient;
-					//ShellStream = client.CreateShellStream("cmd", 80, 24, 800, 600, 1024);
-					//ShellStream.DataReceived += Stream_DataReceived;
+					var client = App.SshClient;
+					ShellStream = client.CreateShellStream("cmd", 80, 24, 800, 600, 1024);
+					ShellStream.DataReceived += Stream_DataReceived;
 				}
 
 				catch (Exception ex)

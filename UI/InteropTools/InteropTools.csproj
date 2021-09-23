@@ -8,7 +8,7 @@
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>InteropTools</RootNamespace>
-    <AssemblyName>InteropTools2</AssemblyName>
+    <AssemblyName>InteropTools</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
@@ -18,10 +18,11 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>InteropTools_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>64DD25FD682656F65F5F1F07F13696079544F946</PackageCertificateThumbprint>
+    <AppxBundlePlatforms>x86|arm</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>
+    </PackageCertificateThumbprint>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
@@ -107,10 +108,8 @@
     </Compile>
     <Compile Include="Classes\AsyncHelper.cs" />
     <Compile Include="Classes\DeviceInfo.cs" />
-    <Compile Include="Classes\IEnumerableExtensions.cs" />
     <Compile Include="Classes\ObservableRangeCollection.cs" />
     <Compile Include="Classes\SSHSystemAccessHelper.cs" />
-    <Compile Include="Classes\ViewLifetimeControl.cs" />
     <Compile Include="ContentDialogs\AppManager\AppPackageContentDialog.xaml.cs">
       <DependentUpon>AppPackageContentDialog.xaml</DependentUpon>
     </Compile>
@@ -166,9 +165,6 @@
       <DependentUpon>BackDropMedium.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CustomFlipView.cs" />
-    <Compile Include="Controls\EULAControl.xaml.cs">
-      <DependentUpon>EULAControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\FlipViewExtensions.cs" />
     <Compile Include="Controls\FlipViewIndicator.cs" />
     <Compile Include="Controls\Keyboards\Carret.xaml.cs">
@@ -182,11 +178,13 @@
     </Compile>
     <Compile Include="Controls\SplitViews\Extensions.cs" />
     <Compile Include="Controls\SplitViews\SwipeableSplitView.cs" />
-    <Compile Include="Controls\SwipeableSplitView.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\TreeView\GlyphConverter.cs" />
     <Compile Include="CorePages\CoreFrame.xaml.cs">
       <DependentUpon>CoreFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CorePages\ExtendedSplashScreen.xaml.cs">
+      <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="CorePages\IPage.cs" />
     <Compile Include="CorePages\LaunchedForResultsPage.xaml.cs">
@@ -200,20 +198,8 @@
     <Compile Include="CorePages\TabsControl.xaml.cs">
       <DependentUpon>TabsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CorePages\TweaksPage.xaml.cs">
-      <DependentUpon>TweaksPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CorePages\UserDisplayControl.xaml.cs">
       <DependentUpon>UserDisplayControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CorePages\WelcomePage.xaml.cs">
-      <DependentUpon>WelcomePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Handlers\PageExtensions.cs" />
-    <Compile Include="Handlers\SettingsHandler.cs" />
-    <Compile Include="Handlers\VersionHandler.cs" />
-    <Compile Include="Pages\Core\SplashScreen.xaml.cs">
-      <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Presentation\AlphaKeyGroup.cs" />
     <Compile Include="Presentation\DisplayableTheme.cs" />
@@ -221,20 +207,10 @@
     <Compile Include="Presentation\ShellViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CCMDProvider.cs" />
-    <Compile Include="Resources\Localization.cs" />
     <Compile Include="ShellPages\Store\StorePage.xaml.cs">
       <DependentUpon>StorePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\InteropToolsThemeResources.cs" />
     <None Include="Caps.txt" />
-    <Content Include="Assets\banner.png" />
-    <Content Include="Assets\Tiles\App\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
-    <Content Include="Assets\Tiles\App\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
-    <Content Include="Assets\Tiles\App\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
-    <Content Include="Assets\Tiles\App\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
-    <Content Include="Assets\Tiles\App\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
-    <Content Include="Assets\Tiles\App\Square44x44Logo.altform-unplated_targetsize-32.png" />
-    <Content Include="Assets\Tiles\App\Square44x44Logo.targetsize-32.png" />
     <Content Include="Microsoft.UI.Xaml\Assets\NoiseAsset_256X256_PNG.png" />
     <Content Include="Web\assets\welcomeheader.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -421,7 +397,7 @@
     </None>
   </ItemGroup>
   <Choose>
-    <When Condition=" '$(Configuration)' == 'StoreDebug' Or '$(Configuration)' == 'StoreRelease' ">
+    <When Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release' ">
       <ItemGroup>
         <AppxManifest Include="Package.Store.appxmanifest">
           <SubType>Designer</SubType>
@@ -727,10 +703,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\EULAControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controls\Keyboards\Carret.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -747,6 +719,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CorePages\ExtendedSplashScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CorePages\LaunchedForResultsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -759,23 +735,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CorePages\TweaksPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="CorePages\UserDisplayControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CorePages\WelcomePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Pages\Core\SplashScreen.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <!--Page Include="Microsoft.UI.Xaml\Themes\Generic.xaml">
+    <Page Include="Microsoft.UI.Xaml\Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -794,7 +758,7 @@
     <Page Include="Microsoft.UI.Xaml\Themes\rs3_themeresources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page-->
+    </Page>
     <Page Include="ShellPages\AppManager\AppListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -923,18 +887,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\fluent.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\mdl2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Themes\rs1_neon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -946,7 +898,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Flurl.Http">
-      <Version>2.4.2</Version>
+      <Version>3.0.0-pre3</Version>
+    </PackageReference>
+    <PackageReference Include="HockeySDK.UWP">
+      <Version>4.1.6</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.8</Version>
@@ -955,16 +910,10 @@
       <Version>10.1705.16001</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
-      <Version>2.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
-      <Version>2.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
-      <Version>2.1.1</Version>
+      <Version>1.5.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>2.1.1</Version>
+      <Version>1.5.1</Version>
     </PackageReference>
     <PackageReference Include="MyToolkit.Extended">
       <Version>2.5.16</Version>
@@ -979,7 +928,7 @@
       <Version>1.0.0</Version>
     </PackageReference>
     <PackageReference Include="SSH.NET">
-      <Version>2020.0.1</Version>
+      <Version>2020.0.0-beta1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -994,10 +943,6 @@
     <ProjectReference Include="..\..\InteropTools.Providers\InteropTools.Providers.csproj">
       <Project>{c5b8e40b-c8df-404b-85c2-c01557b2e720}</Project>
       <Name>InteropTools.Providers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Legacy\RegistryHelper\RegistryHelper.csproj">
-      <Project>{1a9b9624-dcde-47f9-b12e-64061b85ec72}</Project>
-      <Name>RegistryHelper</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Providers\Libs\AppPlugin\AppPlugin.csproj">
       <Project>{d35e5f0f-601c-43bf-82d6-89f51ac6aa8b}</Project>
@@ -1034,11 +979,38 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <Reference Include="Microsoft.UI.Xaml, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Prebuilt\x86\Microsoft.UI.Xaml.winmd</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <Reference Include="Microsoft.UI.Xaml, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Prebuilt\arm\Microsoft.UI.Xaml.winmd</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <Reference Include="Microsoft.UI.Xaml, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Prebuilt\x86\Microsoft.UI.Xaml.winmd</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <Reference Include="Microsoft.UI.Xaml, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Prebuilt\arm\Microsoft.UI.Xaml.winmd</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes\Extensions\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreRelease|x86'">
-    <OutputPath>bin\x86\StoreRelease\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;CODE_ANALYSIS;STORE</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -1051,8 +1023,8 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreRelease|ARM'">
-    <OutputPath>bin\ARM\StoreRelease\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;CODE_ANALYSIS;STORE</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -1065,8 +1037,8 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreRelease|x64'">
-    <OutputPath>bin\x64\StoreRelease\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;CODE_ANALYSIS;STORE</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -1079,9 +1051,9 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreDebug|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\StoreDebug\</OutputPath>
+    <OutputPath>bin\x86\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;CODE_ANALYSIS;STORE</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <NoStdLib>true</NoStdLib>
@@ -1092,9 +1064,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreDebug|ARM'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ARM\StoreDebug\</OutputPath>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;CODE_ANALYSIS;STORE</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <NoStdLib>true</NoStdLib>
@@ -1105,9 +1077,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreDebug|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\StoreDebug\</OutputPath>
+    <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;CODE_ANALYSIS;STORE</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <NoStdLib>true</NoStdLib>

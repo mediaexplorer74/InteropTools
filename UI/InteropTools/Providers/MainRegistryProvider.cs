@@ -1,5 +1,4 @@
 ﻿using Microsoft.Toolkit.Uwp;
-using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

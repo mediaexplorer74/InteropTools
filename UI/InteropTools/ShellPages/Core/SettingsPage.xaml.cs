@@ -32,8 +32,6 @@ namespace InteropTools.ShellPages.Core
             this.InitializeComponent();
             this.ViewModel = new SettingsViewModel();
 
-            // REDO (breaxk legacy XAML tech link)
-            /*
             try
             {
                 ColorPicker.Color = this.ViewModel.SelectedBrush.Color;
@@ -42,7 +40,6 @@ namespace InteropTools.ShellPages.Core
             {
 
             }
-            */
 
             Refresh();
 
@@ -135,7 +132,6 @@ namespace InteropTools.ShellPages.Core
 
         public SettingsViewModel ViewModel { get; }
 
-        /*
         private void ColorPicker_ColorChanged(Microsoft.UI.Xaml.Controls.ColorPicker sender, Microsoft.UI.Xaml.Controls.ColorChangedEventArgs args)
         {
             if (!ViewModel.Brushes.Contains(new Windows.UI.Xaml.Media.SolidColorBrush(args.NewColor)))
@@ -146,7 +142,6 @@ namespace InteropTools.ShellPages.Core
             }
             ViewModel.SelectedBrush = new Windows.UI.Xaml.Media.SolidColorBrush(args.NewColor);
         }
-        */
 
 
         private void Refresh()

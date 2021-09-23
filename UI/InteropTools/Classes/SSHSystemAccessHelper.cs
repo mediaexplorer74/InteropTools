@@ -23,10 +23,8 @@ namespace InteropTools.Classes
 		public async Task<UnlockStates> UnlockSSHSystemAccess()
 		{
 			IRegistryProvider helper = App.MainRegistryHelper;
-			
-			//var shell = ((CorePages.Shell)App.AppContent);
-
-			var useCMD = false; //await App.IsCMDSupported();
+			var shell = ((CorePages.Shell)App.AppContent);
+			var useCMD = await App.IsCMDSupported();
 
 			if (useCMD)
 			{

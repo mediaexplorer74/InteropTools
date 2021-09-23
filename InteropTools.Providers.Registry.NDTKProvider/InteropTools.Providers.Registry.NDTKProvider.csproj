@@ -127,13 +127,13 @@
       <Project>{d35e5f0f-601c-43bf-82d6-89f51ac6aa8b}</Project>
       <Name>AppPlugin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Providers\Registry\Definition\InteropTools.Providers.Registry.Definition\InteropTools.Providers.Registry.Definition.csproj">
-      <Project>{79303cb0-e637-4589-ad32-005c26e737f9}</Project>
-      <Name>InteropTools.Providers.Registry.Definition</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Providers\Libs\ndtklib\ndtklib.vcxproj">
       <Project>{434ff158-6783-40b2-b32e-7d4ab0f2a9e9}</Project>
       <Name>ndtklib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Providers\Registry\Definition\InteropTools.Providers.Registry.Definition\InteropTools.Providers.Registry.Definition.csproj">
+      <Project>{79303cb0-e637-4589-ad32-005c26e737f9}</Project>
+      <Name>InteropTools.Providers.Registry.Definition</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

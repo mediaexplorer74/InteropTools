@@ -225,11 +225,9 @@
                             </Grid.RowDefinitions>
                             <TextBlock
                             Grid.Row="0"
-                            Style="{StaticResource HeaderTextBlockStyle}"
+                            Style="{StaticResource TitleTextBlockStyle3}"
                             Text="RECENTLY USED" />
-
-                            <!--GridViewStretchedStyle-->
-                                <GridView
+                            <GridView
                             x:Name="GridView2"
                             Grid.Row="1"
                             Margin="-12,0,-12,0"
@@ -238,7 +236,7 @@
                             ScrollViewer.VerticalScrollBarVisibility="Auto"
                             ScrollViewer.VerticalScrollMode="Disabled"
                             SelectionMode="None"
-                            ItemContainerStyle="{StaticResource GridViewItemExpanded}">
+                            ItemContainerStyle="{StaticResource GridViewStretchedStyle}">
 
                                 <GridView.ItemTemplate>
                                     <DataTemplate>
@@ -303,7 +301,7 @@
                             </Grid.RowDefinitions>
                             <TextBlock
                             Grid.Row="0"
-                            Style="{StaticResource HeaderTextBlockStyle}"
+                            Style="{StaticResource TitleTextBlockStyle3}"
                             Text="REGISTRY HISTORY" />
                         </Grid>
 
@@ -315,7 +313,7 @@
                             </Grid.RowDefinitions>
                             <TextBlock
                             Grid.Row="0"
-                            Style="{StaticResource HeaderTextBlockStyle}"
+                            Style="{StaticResource TitleTextBlockStyle3}"
                             Text="FAVORITES" />
                         </Grid>
                     </Grid>

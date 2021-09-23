@@ -51,12 +51,10 @@ namespace InteropTools.Providers
             }
             else
             {
-                /*
                 result = await DispatcherHelper.ExecuteOnUIThreadAsync<IRegProvider>(async () =>
                 {
                    return await new SelectRegistryProviderContentDialog().AskUserForProvider();
                 });
-                */
                 
                 if (result == null)
                 {

@@ -30,9 +30,8 @@
                         TextWrapping="Wrap"
                         Visibility="{Binding PageTitleVisibility}" />
 
-                    <!--TitleTextBlockStyle is in Typography, Intense UI-->
-                        <TextBlock
-                        Style="{StaticResource HeaderTextBlockStyle}"
+                    <TextBlock
+                        Style="{StaticResource TitleTextBlockStyle3}"
                         Text="CURRENT BUILD VERSION"
                         TextWrapping="Wrap" />
 
@@ -150,7 +149,7 @@
 
 
                     <TextBlock
-                        Style="{StaticResource HeaderTextBlockStyle}"
+                        Style="{StaticResource TitleTextBlockStyle3}"
                         Text="BUILD DETAILS"
                         TextWrapping="Wrap" />
                     <Grid Margin="0,8,0,0">
@@ -244,7 +243,7 @@
 
 
                     <TextBlock
-                        Style="{StaticResource HeaderTextBlockStyle}"
+                        Style="{StaticResource TitleTextBlockStyle3}"
                         Text="OS SKU DETAILS"
                         TextWrapping="Wrap" />
 
@@ -331,7 +330,7 @@
                     </Grid>
 
                     <TextBlock
-                        Style="{StaticResource HeaderTextBlockStyle}"
+                        Style="{StaticResource TitleTextBlockStyle3}"
                         Text="SETUP DETAILS"
                         TextWrapping="Wrap" />
                     <Grid Margin="0,8,0,0">

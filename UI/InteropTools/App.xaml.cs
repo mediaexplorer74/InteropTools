@@ -1,76 +1,46 @@
 ﻿using System;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml;
-using Windows.UI.Popups;
-using Windows.UI.ViewManagement;
-using System.Collections.ObjectModel;
-using Windows.UI.Core;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
-using Windows.UI.Xaml.Controls;
-using InteropTools.Resources;
-using Windows.UI.Notifications;
-using Windows.System.Profile;
-using Microsoft.Toolkit.Uwp.Notifications;
-using System.Diagnostics;
-using Windows.Foundation.Metadata;
-using Windows.ApplicationModel.Resources.Core; // App Resources Core
-using Renci.SshNet;  // Session 
-
-
 using System.Collections.Generic;
 using System.Linq;
-
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources.Core;
+using Windows.Foundation.Metadata;
 using Windows.Storage;
 using Windows.System.Display;
-
+using Windows.UI.Notifications;
+using Windows.UI.StartScreen;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 using InteropTools.RemoteClasses.Server;
-
-// switch shell =)
-//using Shell = InteropTools.CorePages.Shell; // новая
-using Shell = InteropTools.Shell; // старая
-
+using Shell = InteropTools.CorePages.Shell;
 using Windows.Foundation;
 using Windows.Graphics.Display;
-
+using Renci.SshNet;
 using InteropTools.Providers;
-
+using System.Threading.Tasks;
 using System.IO;
 using Windows.ApplicationModel.ExtendedExecution;
-
+using Windows.System.Profile;
+using InteropTools.Resources;
+using Microsoft.HockeyApp;
+//using Microsoft.Services.Store.Engagement;
+//using RegPluginList = AppPlugin.PluginList.PluginList<string, string, InteropTools.Providers.Registry.Definition.TransfareOptions, double>;
+//using PowerPluginList = AppPlugin.PluginList.PluginList<string, string, InteropTools.Providers.OSReboot.Definition.TransfareOptions, double>;
 using InteropTools.CorePages;
-
+using Windows.UI.Core;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Markup;
-
+using Microsoft.Toolkit.Uwp.Notifications;
+using System.Diagnostics;
+using Windows.UI.Xaml.Controls;
 using InteropTools.ContentDialogs.Core;
 using Microsoft.Services.Store.Engagement;
-
-
+using Windows.UI.Popups;
 
 namespace InteropTools
 {
-
-    
-
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
-    public sealed partial class App : Application
+    sealed partial class App
     {
-
-        public class Remote
-        {
-            string Hostname;
-            int SessionID;
-        }
-
-        // /UI/IT/Resources/Localization.cs
-        public static Localization local = new Localization();
-
-        // -------------- refactor it! --------------------------
-
         //public static RegPluginList regpluginlist;
         //public static PowerPluginList powerpluginlist;
 
@@ -81,9 +51,7 @@ namespace InteropTools
             "Resources/The_following_Remote_device_wants_to_access_your_phone_Registry",
             ResourceContext.GetForCurrentView()
         ).ValueAsString;
-
         public static readonly string RemoteAllowLoc = ResourceManager.Current.MainResourceMap.GetValue("Resources/Allow", ResourceContext.GetForCurrentView()).ValueAsString;
-
         public static readonly string RemoteDenyLoc = ResourceManager.Current.MainResourceMap.GetValue("Resources/Deny", ResourceContext.GetForCurrentView()).ValueAsString;
 
         public static readonly ObservableRangeCollection<Session> Sessions = new ObservableRangeCollection<Session>();
@@ -96,14 +64,14 @@ namespace InteropTools
         {
             get
             {
-                return  null; // CurrentSession != null ? Sessions[(int)CurrentSession].Helper : null;
+                return CurrentSession != null ? Sessions[(int)CurrentSession].Helper : null;
             }
 
             set
             {
                 if (CurrentSession != null)
                 {
-                    //Sessions[(int)CurrentSession].Helper = value;
+                    Sessions[(int)CurrentSession].Helper = value;
                 }
             }
         }
@@ -115,18 +83,8 @@ namespace InteropTools
         // External stuff
         public static readonly RemoteServer Server = new RemoteServer();
 
-        //private static readonly Random Random = new Random();
-
+        private static readonly Random Random = new Random();
         public static readonly string SessionId = RandomString(10);
-
-        private static readonly Random _rng = new Random();
-       
-        private static string RandomString(int size)
-        {
-           
-            return "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        }
-
         public static readonly List<Remote> AllowedRemotes = new List<Remote>();
         public static readonly List<Remote> DeniedRemotes = new List<Remote>();
         // End of external stuff
@@ -135,39 +93,64 @@ namespace InteropTools
         private static readonly double scaleFactor = DisplayInformation.GetForCurrentView().RawPixelsPerViewPixel;
         public static readonly Size size = new Size(bounds.Width * scaleFactor, bounds.Height * scaleFactor);
 
-        // ------------------------------------------------------
-
-
-
-
-
-        // App () constructor 
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
-
-            /*if (ApiInformation.IsPropertyPresent("Windows.UI.Xaml.Application", "RequiresPointerMode"))
-                RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;*/
-
             UnhandledException += async (s, args) =>
             {
                 args.Handled = true;
 
                 try
                 {
-                    await new MessageDialog(args.Exception?.ToString() ?? string.Empty, local.App_UnhandledException).ShowAsync();
+                    await new MessageDialog(args.Exception?.ToString() ?? string.Empty, "Unhandled exception").ShowAsync();
                 }
                 catch { }
             };
 
-            //RefreshTile();
+            HockeyClient.Current.Configure("8f0c0303cc9b40648d6f3962bbac2b40", new TelemetryConfiguration()
+            {
+                Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.UnhandledException,
+                EnableDiagnostics = true
+            });
+            try
+            {
+                //MobileCenter.Start("af6e74dc-17ac-469e-876c-6acb9c214a4a", typeof(Analytics));
+            } catch
+            {
+
+            }
+
+            InitializeComponent();
+
+            //Suspending += OnSuspending;
+            //Microsoft.UI.Xaml.Controls.DEPControlsClass.Initialize();
         }
 
+        public static SshClient SshClient { get; set; }
 
-        // ---------------------
+        public static UIElement AppContent
+        {
+            get
+            {
+                if (Window.Current.Content == null)
+                {
+                    Window.Current.Content = new CoreFrame();
+                }
 
-        // Refactor it!!
+                CoreFrame frame = Window.Current.Content as CoreFrame;
+                return frame.FrameContent;
+            }
+
+            set
+            {
+                if (Window.Current.Content == null)
+                {
+                    Window.Current.Content = new CoreFrame();
+                }
+
+                CoreFrame frame = Window.Current.Content as CoreFrame;
+                frame.FrameContent = value;
+            }
+        }
         public async static Task<bool> IsCMDSupported()
         {
             var helper = MainRegistryHelper;
@@ -378,48 +361,416 @@ namespace InteropTools
             }
         }
 
-        // ---------------------
-
-        public static SshClient SshClient { get; set; }
-
-        public static UIElement AppContent
+        public static void AddNewSession(object args)
         {
-            get
+            var session = new Session
             {
-                if (Window.Current.Content == null)
-                {
-                    Window.Current.Content = new CoreFrame();
-                }
+                Helper = null,
+                WindowContent = new Shell(args),//new SelectProviderPage(args),
+                CreationDate = DateTime.Now
+            };
+            Sessions.Add(session);
+            SwitchSession(session);
+        }
 
-                CoreFrame frame = Window.Current.Content as CoreFrame;
-                return frame.FrameContent;
+        public async static void SwitchSession(Session session)
+        {
+            if (CurrentSession != null)
+            {
+                Sessions[(int)CurrentSession].WindowContent = App.AppContent;
+                RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
+                await renderTargetBitmap.RenderAsync(Sessions[(int)CurrentSession].WindowContent);
+                Sessions[(int)CurrentSession].Preview = renderTargetBitmap;
             }
 
-            set
+            if (session.WindowContent is Shell)
             {
-                if (Window.Current.Content == null)
+                var shell = (Shell)session.WindowContent;
+                var visibility = AppViewBackButtonVisibility.Collapsed;
+
+                if (shell.RootFrame.CanGoBack)
                 {
-                    Window.Current.Content = new CoreFrame();
+                    visibility = AppViewBackButtonVisibility.Visible;
                 }
 
-                CoreFrame frame = Window.Current.Content as CoreFrame;
-                frame.FrameContent = value;
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = visibility;
+            }
+
+            else
+            {
+                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                  AppViewBackButtonVisibility.Collapsed;
+            }
+
+            CurrentSession = Sessions.IndexOf(session);
+            App.AppContent = session.WindowContent;
+            RenderTargetBitmap renderTargetBitmap_ = new RenderTargetBitmap();
+            await renderTargetBitmap_.RenderAsync(Sessions[(int)CurrentSession].WindowContent);
+            Sessions[(int)CurrentSession].Preview = renderTargetBitmap_;
+            Window.Current.Activate();
+
+            if (App.AppContent is Shell)
+            {
+                var shell = (Shell)session.WindowContent;
+                shell.ReSetupTitlebar();
             }
         }
 
-        // ---------------------
-
-        public ObservableCollection<ViewLifetimeControl> SecondaryViews = new ObservableCollection<ViewLifetimeControl>();
-        private CoreDispatcher mainDispatcher;
-        public CoreDispatcher MainDispatcher
+        private static string RandomString(int length)
         {
-            get
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length).Select(s => s[Random.Next(s.Length)]).ToArray());
+        }
+
+        protected override async void OnFileActivated(FileActivatedEventArgs args)
+        {
+            // TODO: Handle file activation
+            // The number of files received is args.Files.Size
+            // The name of the first file is args.Files[0].Name
+            var file = args.Files[0] as StorageFile;
+            RefreshTile();
+
+            if (CurrentSession == null)
             {
-                return mainDispatcher;
+                //  Display an extended splash screen if app was not previously running.
+                if (args.PreviousExecutionState != ApplicationExecutionState.Running)
+                {
+                    bool loadState = (args.PreviousExecutionState == ApplicationExecutionState.Terminated);
+                    ExtendedSplashScreen extendedSplash = new ExtendedSplashScreen(args.SplashScreen, loadState, file);
+                    App.AppContent = extendedSplash;
+                    Window.Current.Activate();
+                }
+
+                else
+                {
+                    AddNewSession(file);
+                }
+            }
+
+            else if (App.AppContent as Shell == null)
+            {
+                //  Display an extended splash screen if app was not previously running.
+                if (args.PreviousExecutionState != ApplicationExecutionState.Running)
+                {
+                    bool loadState = (args.PreviousExecutionState == ApplicationExecutionState.Terminated);
+                    ExtendedSplashScreen extendedSplash = new ExtendedSplashScreen(args.SplashScreen, loadState, file);
+                    App.AppContent = extendedSplash;
+                    Window.Current.Activate();
+                }
+
+                else
+                {
+                    AddNewSession(file);
+                }
+            }
+
+            else
+            {
+                var currentContent = App.AppContent as Shell;
+                await currentContent.HandleFileActivatedEvent(file);
             }
         }
 
-        private void RefreshTile()
+        protected async override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                base.OnActivated(args);
+
+                try
+                {
+                    if (args is ToastNotificationActivatedEventArgs)
+                    {
+                        var toastActivationArgs = args as ToastNotificationActivatedEventArgs;
+
+                        StoreServicesEngagementManager engagementManager = StoreServicesEngagementManager.GetDefault();
+                        string originalArgs = engagementManager.ParseArgumentsAndTrackAppLaunch(
+                            toastActivationArgs.Argument);
+
+                        // Use the originalArgs variable to access the original arguments
+                        // that were passed to the app.
+                    }
+                }
+                catch
+                {
+
+                }
+
+                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+
+                if (!ApiInformation.IsMethodPresent("Windows.UI.Composition.Compositor", "CreateHostBackdropBrush"))
+                {
+                    /*this.Resources.MergedDictionaries.Add
+                    (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Themes/rs2_generic.xaml") }
+                    );
+                    if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Controls.ColorPicker"))
+                    {
+                        this.Resources.MergedDictionaries.Add
+                        (
+                            new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Themes/rs3_themeresources.xaml") }
+                        );
+                    }
+                    else
+                    {
+                        this.Resources.MergedDictionaries.Add
+                        (
+                            new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Themes/rs2_themeresources.xaml") }
+                        );
+                    }
+                    this.Resources.MergedDictionaries.Add
+                    (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Package_Themes_rs2_generic.xaml") }
+                    );
+                    this.Resources.MergedDictionaries.Add
+                    (
+                            new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Package_Themes_rs2_themeresources.xaml") }
+                    );*/
+                    this.Resources.MergedDictionaries.Add
+                    (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Themes/rs2_neon.xaml") }
+                    );
+                }
+                else
+                {
+                    /*this.Resources.MergedDictionaries.Add
+                    (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Themes/Generic.xaml") }
+                    );
+                    this.Resources.MergedDictionaries.Add
+                    (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Themes/rs1_themeresources.xaml") }
+                    );
+                    this.Resources.MergedDictionaries.Add
+                    (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Package_Themes_Generic.xaml") }
+                    );
+                    this.Resources.MergedDictionaries.Add
+                    (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Package_Themes_rs1_themeresources.xaml") }
+                    );*/
+                    this.Resources.MergedDictionaries.Add
+                    (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Themes/rs1_neon.xaml") }
+                    );
+                }
+
+                try
+                {
+                    StoreServicesEngagementManager engagementManager = StoreServicesEngagementManager.GetDefault();
+                    await engagementManager.RegisterNotificationChannelAsync();
+                }
+                catch
+                {
+
+                }
+
+
+#if DEBUG
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    // disabled, obscures the hamburger button, enable if you need it
+                    //this.DebugSettings.EnableFrameRateCounter = true;
+                }
+#endif
+
+                //regpluginlist = await InteropTools.Providers.Registry.Definition.RegistryProvidersWithOptions.ListAsync(InteropTools.Providers.Registry.Definition.RegistryProvidersWithOptions.PLUGIN_NAME);
+                //powerpluginlist = await InteropTools.Providers.OSReboot.Definition.OSRebootProvidersWithOptions.ListAsync(InteropTools.Providers.OSReboot.Definition.OSRebootProvidersWithOptions.PLUGIN_NAME);
+
+                RefreshTile();
+
+                if (CurrentSession == null)
+                {
+                    //  Display an extended splash screen if app was not previously running.
+                    if (eventArgs.PreviousExecutionState != ApplicationExecutionState.Running)
+                    {
+                        bool loadState = (eventArgs.PreviousExecutionState == ApplicationExecutionState.Terminated);
+                        ExtendedSplashScreen extendedSplash = new ExtendedSplashScreen(eventArgs.SplashScreen, loadState, "");
+                        App.AppContent = extendedSplash;
+                        Window.Current.Activate();
+                    }
+
+                    else
+                    {
+                        AddNewSession("");
+                    }
+                }
+            }
+            else if (args.Kind == ActivationKind.ProtocolForResults && Window.Current.Content == null && ((ProtocolForResultsActivatedEventArgs)args).Uri.AbsoluteUri.Contains("interoptools-appextensionregistrar"))
+            {
+                // Setup temp frame, ask for provider, show dialog saying hey do you want to allow app, and close / suspend.
+                // Also save the app pfn that asked.
+
+                var protocolForResultsArgs = (ProtocolForResultsActivatedEventArgs)args;
+
+                // Window management
+                Frame rootFrame = Window.Current.Content as Frame;
+                if (rootFrame == null)
+                {
+                    rootFrame = new Frame();
+                    Window.Current.Content = rootFrame;
+
+                    //Microsoft.UI.Xaml.Controls.DEPControlsClass.SetupRevealForFullWindowMedia(Window.Current.Content);
+                    //Microsoft.UI.Xaml.Controls.DEPControlsThemeResources.EnsureRevealLights(Window.Current.Content);
+                }
+                
+                // Open the page that we created to handle activation for results.
+                rootFrame.Navigate(typeof(LaunchedForResultsPage), protocolForResultsArgs);
+
+                // Ensure the current window is active.
+                Window.Current.Activate();
+            }
+            else
+            {
+                base.OnActivated(args);
+
+                try
+                {
+                    if (args is ToastNotificationActivatedEventArgs)
+                    {
+                        var toastActivationArgs = args as ToastNotificationActivatedEventArgs;
+
+                        StoreServicesEngagementManager engagementManager = StoreServicesEngagementManager.GetDefault();
+                        string originalArgs = engagementManager.ParseArgumentsAndTrackAppLaunch(
+                            toastActivationArgs.Argument);
+
+                        // Use the originalArgs variable to access the original arguments
+                        // that were passed to the app.
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
+        {
+            if (ApiInformation.IsMethodPresent("Windows.UI.Composition.Compositor", "CreateHostBackdropBrush"))
+            {
+                /*this.Resources.MergedDictionaries.Add
+                (
+                    new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Themes/rs2_generic.xaml") }
+                );
+                if (ApiInformation.IsTypePresent("Windows.UI.Xaml.Controls.ColorPicker"))
+                {
+                    this.Resources.MergedDictionaries.Add
+                    (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Themes/rs3_themeresources.xaml") }
+                    );
+                }
+                else
+                {
+                    this.Resources.MergedDictionaries.Add
+                    (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Themes/rs2_themeresources.xaml") }
+                    );
+                }
+                this.Resources.MergedDictionaries.Add
+                (
+                    new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Package_Themes_rs2_generic.xaml") }
+                );
+                this.Resources.MergedDictionaries.Add
+                (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Package_Themes_rs2_themeresources.xaml") }
+                );*/
+                var applicationData = ApplicationData.Current;
+                var localSettings = applicationData.LocalSettings;
+
+                if ((localSettings.Values["useMDL2"] == null) || (localSettings.Values["useMDL2"].GetType() != typeof(bool)))
+                {
+                    localSettings.Values["useMDL2"] = false;
+                }
+
+                var useMDL2 = (bool)localSettings.Values["useMDL2"];
+
+                if (!useMDL2)
+                {
+                    this.Resources.MergedDictionaries.Add
+                    (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Themes/rs2_neon.xaml") }
+                    );
+                }
+                else
+                {
+                    this.Resources.MergedDictionaries.Add
+                    (
+                        new ResourceDictionary { Source = new Uri("ms-appx:///Themes/rs1_neon.xaml") }
+                    );
+                }
+            }
+            else
+            {
+                /*this.Resources.MergedDictionaries.Add
+                (
+                    new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Themes/Generic.xaml") }
+                );
+                this.Resources.MergedDictionaries.Add
+                (
+                    new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Themes/rs1_themeresources.xaml") }
+                );
+                this.Resources.MergedDictionaries.Add
+                (
+                    new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Package_Themes_Generic.xaml") }
+                );
+                this.Resources.MergedDictionaries.Add
+                (
+                    new ResourceDictionary { Source = new Uri("ms-appx:///Microsoft.UI.Xaml/Package_Themes_rs1_themeresources.xaml") }
+                );*/
+                this.Resources.MergedDictionaries.Add
+                (
+                    new ResourceDictionary { Source = new Uri("ms-appx:///Themes/rs1_neon.xaml") }
+                );
+            }
+
+            try
+            {
+                StoreServicesEngagementManager engagementManager = StoreServicesEngagementManager.GetDefault();
+                await engagementManager.RegisterNotificationChannelAsync();
+            }
+            catch
+            {
+
+            }
+
+
+
+            //regpluginlist = await InteropTools.Providers.Registry.Definition.RegistryProvidersWithOptions.ListAsync(InteropTools.Providers.Registry.Definition.RegistryProvidersWithOptions.PLUGIN_NAME);
+            //powerpluginlist = await InteropTools.Providers.OSReboot.Definition.OSRebootProvidersWithOptions.ListAsync(InteropTools.Providers.OSReboot.Definition.OSRebootProvidersWithOptions.PLUGIN_NAME);
+
+            RefreshTile();
+
+            if (CurrentSession == null)
+            {
+                //  Display an extended splash screen if app was not previously running.
+                if (e.PreviousExecutionState != ApplicationExecutionState.Running)
+                {
+                    bool loadState = (e.PreviousExecutionState == ApplicationExecutionState.Terminated);
+                    ExtendedSplashScreen extendedSplash = new ExtendedSplashScreen(e.SplashScreen, loadState, e.Arguments);
+                    App.AppContent = extendedSplash;
+                    Window.Current.Activate();
+                }
+
+                else
+                {
+                    AddNewSession(e.Arguments);
+                }
+            }
+
+            var args = e.Arguments;
+            var currentContent = App.AppContent as Shell;
+
+            if (currentContent == null)
+            {
+                return;
+            }
+
+            var shell = currentContent;
+            shell.HandleLaunchedEvent(args);
+        }
+
+        private async void RefreshTile()
         {
             var devicefamily = AnalyticsInfo.VersionInfo.DeviceFamily;
             var tileimg = "generic";
@@ -517,133 +868,81 @@ namespace InteropTools
             };
             TileUpdateManager.CreateTileUpdaterForApplication().Clear();
             TileUpdateManager.CreateTileUpdaterForApplication().Update(new TileNotification(content.GetXml()));
-        }
 
-        private async Task<ViewLifetimeControl> createMainPageAsync()
-        {
-            ViewLifetimeControl viewControl = null;
-            await CoreApplication.CreateNewView().Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            if (ApiInformation.IsTypePresent("Windows.UI.StartScreen.JumpList"))
             {
-                // This object is used to keep track of the views and important
-                // details about the contents of those views across threads
-                // In your app, you would probably want to track information
-                // like the open document or page inside that window
-                viewControl = ViewLifetimeControl.CreateForCurrentView();
-                // Increment the ref count because we just created the view and we have a reference to it                
-                viewControl.StartViewInUse();
-
-                var frame = new Frame();
-                frame.Navigate(typeof(Shell), viewControl);
-                Window.Current.Content = frame;
-                // This is a change from 8.1: In order for the view to be displayed later it needs to be activated.
-                Window.Current.Activate();
-            });
-
-            ((App)App.Current).SecondaryViews.Add(viewControl);
-
-            return viewControl;
-        }
-
-        /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used such as when the application is launched to open a specific file.
-        /// </summary>
-        /// <param name="e">Details about the launch request and process.</param>
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
-        {
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                // disabled, obscures the hamburger button, enable if you need it
-                DebugSettings.EnableFrameRateCounter = false;
-            }
-#endif
-
-            // CoreApplication.EnablePrelaunch was introduced in Windows 10 version 1607
-            bool canEnablePrelaunch = Windows.Foundation.Metadata.ApiInformation.IsMethodPresent("Windows.ApplicationModel.Core.CoreApplication", "EnablePrelaunch");
-
-            if (Window.Current.Content == null)
-            {
-                bool loadState = (e.PreviousExecutionState == ApplicationExecutionState.Terminated);
-
-                //Pages.SplashScreen extendedSplash = new Pages.SplashScreen(e.SplashScreen, loadState, e.Arguments);
-
-                Pages.SplashScreen extendedSplash = new Pages.SplashScreen(e.SplashScreen, loadState, e.Arguments);
-
-                Window.Current.Content = extendedSplash;
-
-                mainDispatcher = Window.Current.Dispatcher;
-
-                if (e.PrelaunchActivated == false)
+                if (JumpList.IsSupported())
                 {
-                    // On Windows 10 version 1607 or later, this code signals that this app wants to participate in prelaunch
-                    if (canEnablePrelaunch)
-                    {
-                        TryEnablePrelaunch();
-                    }
-
-                    // Ensure the current window is active
-                    Window.Current.Activate();
-                }
-            }
-            else
-            {
-                // second and later
-                var selectedView = await createMainPageAsync();
-                if (selectedView != null)
-                {
-                    selectedView.StartViewInUse();
-                    var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(selectedView.Id, ViewSizePreference.Default, ApplicationView.GetForCurrentView().Id, ViewSizePreference.Default);
-
-                    if (!viewShown)
-                    {
-                        foreach (var item in SecondaryViews)
-                        {
-                            if (item != selectedView)
-                            {
-                                var result = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(selectedView.Id, ViewSizePreference.Default, item.Id, ViewSizePreference.Default);
-                                if (result)
-                                    break;
-                            }
-                        }
-                    }
-
-                    await selectedView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                    {
-                        Window.Current.Activate();
-                    });
-
-                    selectedView.StopViewInUse();
+                    var jumpList = await JumpList.LoadCurrentAsync();
+                    jumpList.Items.Clear();
+                    var item1 = JumpListItem.CreateWithArguments("RegistryEditorPage", InteropTools.Resources.TextResources.Shell_RegistryEditorTitle);
+                    item1.Description = InteropTools.Resources.TextResources.Shell_RegistryEditorDesc;
+                    item1.Logo = new Uri("ms-appx:///Assets/JumpList/registryeditor.png");
+                    var item2 = JumpListItem.CreateWithArguments("RegistryBrowserPage", InteropTools.Resources.TextResources.Shell_RegistryBrowserTitle);
+                    item2.Description = InteropTools.Resources.TextResources.Shell_RegistryBrowserDesc;
+                    item2.Logo = new Uri("ms-appx:///Assets/JumpList/registrybrowser.png");
+                    var item3 = JumpListItem.CreateWithArguments("RegistrySearchPage", InteropTools.Resources.TextResources.Shell_RegistrySearchTitle);
+                    item3.Description = InteropTools.Resources.TextResources.Shell_RegistrySearchDesc;
+                    item3.Logo = new Uri("ms-appx:///Assets/JumpList/registrysearch.png");
+                    var item4 = JumpListItem.CreateWithArguments("TweaksPage", InteropTools.Resources.TextResources.Shell_TweaksTitle);
+                    item4.Description = InteropTools.Resources.TextResources.Shell_TweaksDesc;
+                    item4.Logo = new Uri("ms-appx:///Assets/JumpList/tweaks.png");
+                    var item6 = JumpListItem.CreateWithArguments("AppManagerPage", InteropTools.Resources.TextResources.Shell_ApplicationsTitle);
+                    item6.Description = InteropTools.Resources.TextResources.Shell_ApplicationsDescription;
+                    item6.Logo = new Uri("ms-appx:///Assets/JumpList/apps.png");
+                    var item7 = JumpListItem.CreateWithArguments("CertificatesPage", InteropTools.Resources.TextResources.Shell_CertificatesTitle);
+                    item7.Description = InteropTools.Resources.TextResources.Shell_CertificatesDesc;
+                    item7.Logo = new Uri("ms-appx:///Assets/JumpList/certs.png");
+                    var item8 = JumpListItem.CreateWithArguments("InteropUnlockPage", InteropTools.Resources.TextResources.Shell_InteropUnlockTitle);
+                    item8.Description = InteropTools.Resources.TextResources.Shell_InteropUnlockDesc;
+                    item8.Logo = new Uri("ms-appx:///Assets/JumpList/interopunlock.png");
+                    var item9 = JumpListItem.CreateWithArguments("YourDevicePage", InteropTools.Resources.TextResources.Shell_DeviceInfoTitle);
+                    item9.Description = InteropTools.Resources.TextResources.Shell_DeviceInfoDesc;
+                    item9.Logo = new Uri("ms-appx:///Assets/JumpList/yourdevice.png");
+                    //var item10 = JumpListItem.CreateWithArguments("RemoteAccessPage", InteropTools.Resources.TextResources.Shell_RemoteAccessTitle);
+                    //item10.Description = InteropTools.Resources.TextResources.Shell_RemoteAccessDesc;
+                    //item10.Logo = new Uri("ms-appx:///Assets/JumpList/remoteaccess.png");
+                    jumpList.SystemGroupKind = JumpListSystemGroupKind.None;
+                    jumpList.Items.Add(item1);
+                    jumpList.Items.Add(item2);
+                    jumpList.Items.Add(item3);
+                    jumpList.Items.Add(item4);
+                    jumpList.Items.Add(item6);
+                    jumpList.Items.Add(item7);
+                    jumpList.Items.Add(item8);
+                    jumpList.Items.Add(item9);
+                    //jumpList.Items.Add(item10);
+                    await jumpList.SaveAsync();
                 }
             }
         }
 
-        /// <summary>
-        /// Encapsulates the call to CoreApplication.EnablePrelaunch() so that the JIT
-        /// won't encounter that call (and prevent the app from running when it doesn't
-        /// find it), unless this method gets called. This method should only
-        /// be called when the caller determines that we are running on a system that
-        /// supports CoreApplication.EnablePrelaunch().
-        /// </summary>
-        private void TryEnablePrelaunch()
-        {
-            CoreApplication.EnablePrelaunch(true);
-        }
-
-        /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
-        /// </summary>
-        /// <param name="sender">The source of the suspend request.</param>
-        /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
+
+            using (var session = new ExtendedExecutionSession())
+            {
+                session.Reason = ExtendedExecutionReason.Unspecified;
+                session.Description = TextResources.App_SuspendingDescription;
+                var result = await session.RequestExtensionAsync();
+            }
+
             deferral.Complete();
         }
-    }
 
-    
+        public class Session
+        {
+            public UIElement WindowContent { get; set; }
+            public DateTime CreationDate { get; set; }
+            public IRegistryProvider Helper { get; set; }
+            public RenderTargetBitmap Preview { get; set; }
+        }
+
+        public class Remote
+        {
+            public string SessionID { get; set; }
+            public string Hostname { get; set; }
+        }
+    }
 }

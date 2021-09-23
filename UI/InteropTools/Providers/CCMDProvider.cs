@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
-
 namespace InteropTools.Providers
 {
 	public class CCMDProvider : IRegistryProvider
@@ -49,7 +48,7 @@ namespace InteropTools.Providers
 
 		public Boolean DoesFileExists(String path)
 		{
-			return false; //App.SshClient.RunCommand("if EXIST \"" + path + "\" echo True").Execute().Contains("True");
+			return App.SshClient.RunCommand("if EXIST \"" + path + "\" echo True").Execute().Contains("True");
 		}
 
 		public String GetAppInstallationPath()
@@ -64,7 +63,7 @@ namespace InteropTools.Providers
 
 		public String GetFriendlyName()
 		{
-			return ""; //App.SshClient.ConnectionInfo.Host == "127.0.0.1" ? "This device" : App.SshClient.ConnectionInfo.Host;
+			return App.SshClient.ConnectionInfo.Host == "127.0.0.1" ? "This device" : App.SshClient.ConnectionInfo.Host;
 		}
 
 		public String GetHostName()

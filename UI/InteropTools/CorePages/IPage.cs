@@ -70,11 +70,10 @@ namespace InteropTools.CorePages
         public abstract PageGroup PageGroup { get; }
         public abstract string PageName { get; }
 
-        /*
         public IRegistryProvider RegistryProvider {
             get
             {
-                return null; //App.Sessions[viewid].Helper;
+                return App.Sessions[viewid].Helper;
             }
 
             set
@@ -82,6 +81,5 @@ namespace InteropTools.CorePages
                 App.Sessions[viewid].Helper = value;
             }
         }
-        */
     }
 }

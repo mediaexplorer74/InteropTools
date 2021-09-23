@@ -102,9 +102,7 @@ namespace InteropTools.Providers
         public DateTime LastModified { get; set; }
     }
 
-
-	// IRegistryProvider
-	public interface IRegistryProvider
+    public interface IRegistryProvider
 	{
 		bool IsLocal();
 

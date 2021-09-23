@@ -25,12 +25,9 @@ namespace InteropTools.CorePages
 		{
 			this.InitializeComponent();
 			(Window.Current.Content as CoreFrame).OnCurrentContentChanged += TabsControl_OnCurrentContentChanged;
-			
-            //TabsListView.ItemsSource = Sessions.Select(x => new DisplayItem(x));
-			
-            //Sessions.CollectionChanged += Sessions_CollectionChanged;
-			
-            SizeChanged += TabsControl_SizeChanged;
+			TabsListView.ItemsSource = Sessions.Select(x => new DisplayItem(x));
+			Sessions.CollectionChanged += Sessions_CollectionChanged;
+			SizeChanged += TabsControl_SizeChanged;
 		}
 
 		private void TabsControl_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -40,26 +37,26 @@ namespace InteropTools.CorePages
 
 		private void TabsControl_OnCurrentContentChanged(object sender)
 		{
-			//TabsListView.ItemsSource = Sessions.Select(x => new DisplayItem(x));
+			TabsListView.ItemsSource = Sessions.Select(x => new DisplayItem(x));
 		}
 
 		private void Sessions_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
-			//TabsListView.ItemsSource = Sessions.Select(x => new DisplayItem(x));
+			TabsListView.ItemsSource = Sessions.Select(x => new DisplayItem(x));
 		}
 
         public class DisplayItem
         {
-           // public DisplayItem(Session session)
-            //{
-           //     this.session = session;
-           // }
+            public DisplayItem(Session session)
+            {
+                this.session = session;
+            }
 
             public string Symbol
             {
                 get
                 {
-                    return "[GetSymbol]";//session.Helper.GetSymbol();
+                    return session.Helper.GetSymbol();
                 }
             }
 
@@ -67,7 +64,7 @@ namespace InteropTools.CorePages
             {
                 get
                 {
-                    return "[GetFriendlyName]";//  session.Helper.GetFriendlyName() + " (" + session.CreationDate + ")";
+                    return session.Helper.GetFriendlyName() + " (" + session.CreationDate + ")";
                 }
             }
 
@@ -75,11 +72,10 @@ namespace InteropTools.CorePages
             {
                 get
                 {
-                    return null; //session.Helper.GetTitle() + ResourceManager.Current.MainResourceMap.GetValue("Resources/_connected_to_", ResourceContext.GetForCurrentView()).ValueAsString + session.Helper.GetHostName();
+                    return session.Helper.GetTitle() + ResourceManager.Current.MainResourceMap.GetValue("Resources/_connected_to_", ResourceContext.GetForCurrentView()).ValueAsString + session.Helper.GetHostName();
                 }
             }
 
-            /*
             public object Preview
             {
                 get
@@ -93,7 +89,6 @@ namespace InteropTools.CorePages
                 }
             }
 
-           
             public Visibility SelectedVisibility
             {
                 get
@@ -121,7 +116,6 @@ namespace InteropTools.CorePages
             }
 
             public Session session { get; internal set; }
-            */
         }
 
         public bool IsOpen = false;
@@ -145,7 +139,7 @@ namespace InteropTools.CorePages
 
 		private void CreateNewTab_Click(object sender, RoutedEventArgs e)
 		{
-			//AddNewSession("");
+			AddNewSession("");
 		}
 
 
@@ -166,7 +160,7 @@ namespace InteropTools.CorePages
 
 		private void TabsListView_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			//SwitchSession((e.ClickedItem as DisplayItem).session);
+			SwitchSession((e.ClickedItem as DisplayItem).session);
 		}
 	}
 }

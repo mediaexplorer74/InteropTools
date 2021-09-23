@@ -69,9 +69,7 @@ namespace InteropTools.CorePages
                     imgbrush.ImageSource = pic;
 
                     Image.Background = imgbrush;
-
-                    // REDO it
-                    // PicImage.ProfilePicture = pic;
+                    PicImage.ProfilePicture = pic;
                 }
 
                 if (datapic == null) okay = false;

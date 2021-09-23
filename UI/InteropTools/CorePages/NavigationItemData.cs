@@ -1,5 +1,5 @@
 ﻿using Intense.Presentation;
-//using static InteropTools.CorePages.Shell;
+using static InteropTools.CorePages.Shell;
 
 namespace InteropTools.CorePages
 {
@@ -8,8 +8,8 @@ namespace InteropTools.CorePages
 		public string Name {
 			get
 			{
-				//if (IsGroup)
-				//{ return GroupItem.DisplayName; }
+				if (IsGroup)
+				{ return GroupItem.DisplayName; }
 
 				return NavigationItem.DisplayName;
 			}
@@ -19,8 +19,8 @@ namespace InteropTools.CorePages
 		{
 			get
 			{
-				//if (IsGroup)
-				//{ return GroupItem.Icon; }
+				if (IsGroup)
+				{ return GroupItem.Icon; }
 
 				return NavigationItem.Icon;
 			}
@@ -30,8 +30,8 @@ namespace InteropTools.CorePages
 		{
 			get
 			{
-				//if (IsGroup)
-				//{ return GroupItem.DisplayName; }
+				if (IsGroup)
+				{ return GroupItem.DisplayName; }
 
 				return NavigationItem.Description;
 			}
@@ -41,11 +41,11 @@ namespace InteropTools.CorePages
 		{
 			get
 			{
-				return false; //GroupItem != null;
+				return GroupItem != null;
 			}
 		}
 
-		//public GroupItem GroupItem { get; set; }
+		public GroupItem GroupItem { get; set; }
 		public NavigationItem NavigationItem { get; set; }
 
 		public override bool Equals(object obj)

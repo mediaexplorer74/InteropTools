@@ -114,6 +114,27 @@
     <ErrorReport>prompt</ErrorReport>
     <IntermediateOutputPath>x64\Release\</IntermediateOutputPath>
   </PropertyGroup>
+  <ItemGroup Condition="'$(Platform)' == 'ARM'">
+    <Reference Include="DevProgram">
+      <HintPath>..\DevProgram.winmd</HintPath>
+    </Reference>
+    <Reference Include="LGRuntimeComponent">
+      <HintPath>..\LGRuntimeComponent.winmd</HintPath>
+    </Reference>
+    <Reference Include="RPCComponent">
+      <HintPath>..\RPCComponent.winmd</HintPath>
+    </Reference>
+    <Reference Include="WinPRTUtils">
+      <HintPath>..\WinPRTUtils.winmd</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DevProgramProvider.cs" />
+    <Compile Include="LGRPCProvider.cs" />
+    <Compile Include="NDTKRegistryProvider.cs" />
+    <Compile Include="SAMSUNGRPCProvider.cs" />
+    <Compile Include="WinPRTUtilsProvider.cs" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="CRegistryHelper.cs" />
     <Compile Include="IRegistryProvider.cs" />
@@ -122,60 +143,33 @@
     <Compile Include="RegistryRTProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Providers\Libs\RegistryRT\RegistryRT.vcxproj">
-      <Project>{84a7225c-2daf-410d-ab85-282ab220a89f}</Project>
-      <Name>RegistryRT</Name>
-    </ProjectReference>
+    <SDKReference Include="Microsoft.VCLibs.120, Version=14.0">
+      <Name>Microsoft Visual C++ 2013 Runtime Package for Windows Universal</Name>
+    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.8</Version>
     </PackageReference>
   </ItemGroup>
-  <Choose>
-    <When Condition=" '$(Configuration)' != 'StoreDebug' And '$(Configuration)' != 'StoreRelease' ">
-      <ItemGroup>
-        <Compile Include="DevProgramProvider.cs" />
-        <Compile Include="LGRPCProvider.cs" />
-        <Compile Include="NDTKRegistryProvider.cs" />
-        <Compile Include="SAMSUNGRPCProvider.cs" />
-        <Compile Include="WinPRTUtilsProvider.cs" />
-      </ItemGroup>
-      <ItemGroup>
-        <ProjectReference Include="..\..\Providers\Libs\ndtklib\ndtklib.vcxproj">
-          <Project>{434ff158-6783-40b2-b32e-7d4ab0f2a9e9}</Project>
-          <Name>ndtklib</Name>
-        </ProjectReference>
-      </ItemGroup>
-      <ItemGroup Condition="'$(Platform)' == 'ARM'">
-        <Reference Include="DevProgram">
-          <HintPath>..\DevProgram.winmd</HintPath>
-        </Reference>
-        <Reference Include="LGRuntimeComponent">
-          <HintPath>..\LGRuntimeComponent.winmd</HintPath>
-        </Reference>
-        <Reference Include="RPCComponent">
-          <HintPath>..\RPCComponent.winmd</HintPath>
-        </Reference>
-        <Reference Include="WinPRTUtils">
-          <HintPath>..\WinPRTUtils.winmd</HintPath>
-        </Reference>
-      </ItemGroup>
-      <ItemGroup>
-        <SDKReference Include="Microsoft.VCLibs.120, Version=14.0">
-          <Name>Microsoft Visual C++ 2013 Runtime Package for Windows Universal</Name>
-        </SDKReference>
-      </ItemGroup>
-    </When>
-  </Choose>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Providers\Libs\ndtklib\ndtklib.vcxproj">
+      <Project>{434ff158-6783-40b2-b32e-7d4ab0f2a9e9}</Project>
+      <Name>ndtklib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Providers\Libs\RegistryRT\RegistryRT.vcxproj">
+      <Project>{84a7225c-2daf-410d-ab85-282ab220a89f}</Project>
+      <Name>RegistryRT</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreRelease|AnyCPU'">
-    <OutputPath>bin\StoreRelease\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <NoStdLib>true</NoStdLib>
@@ -185,8 +179,8 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreRelease|x86'">
-    <OutputPath>bin\x86\StoreRelease\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;X86;STORE</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -197,8 +191,8 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreRelease|ARM'">
-    <OutputPath>bin\ARM\StoreRelease\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;ARM;STORE</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -209,8 +203,8 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreRelease|x64'">
-    <OutputPath>bin\x64\StoreRelease\</OutputPath>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;X64;STORE</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -221,9 +215,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreDebug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\StoreDebug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <DebugType>full</DebugType>
@@ -232,9 +226,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreDebug|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\StoreDebug\</OutputPath>
+    <OutputPath>bin\x86\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;X86;STORE</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <NoStdLib>true</NoStdLib>
@@ -244,9 +238,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreDebug|ARM'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ARM\StoreDebug\</OutputPath>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;ARM;STORE</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
@@ -257,9 +251,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StoreDebug|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\StoreDebug\</OutputPath>
+    <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;X64;STORE</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <NoStdLib>true</NoStdLib>

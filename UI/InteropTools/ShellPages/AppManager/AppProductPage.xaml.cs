@@ -680,7 +680,7 @@ namespace InteropTools.ShellPages.AppManager
 			}
 			catch
 			{
-				//(App.AppContent as Shell).RootFrame.GoBack();
+				(App.AppContent as Shell).RootFrame.GoBack();
 			}
 		}
 

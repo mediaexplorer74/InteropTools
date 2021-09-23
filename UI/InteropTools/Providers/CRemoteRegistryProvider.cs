@@ -300,7 +300,7 @@ namespace InteropTools.Providers
         {
             if (!_initialized)
             {
-                _useCmd = false; //await App.IsCMDSupported();
+                _useCmd = await App.IsCMDSupported();
                 _initialized = true;
             }
 

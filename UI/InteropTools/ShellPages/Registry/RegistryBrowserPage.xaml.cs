@@ -14,10 +14,7 @@ using InteropTools.ContentDialogs.Registry;
 using InteropTools.Providers;
 using InteropTools.ShellPages.Core;
 using Windows.ApplicationModel.Resources.Core;
-
-//using Shell = InteropTools.CorePages.Shell;
-using Shell = InteropTools.Shell;
-
+using Shell = InteropTools.CorePages.Shell;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using InteropTools.Classes;
 using System.Collections.Generic;
@@ -434,9 +431,9 @@ namespace InteropTools.ShellPages.Registry
                     HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
                 }
 
-                //var shell = (Shell)App.AppContent;
-                //shell.RootFrame.Navigate(typeof(WelcomePage));
-                //shell.RootFrame.BackStack.Clear();
+                var shell = (Shell)App.AppContent;
+                shell.RootFrame.Navigate(typeof(WelcomePage));
+                shell.RootFrame.BackStack.Clear();
             }
             e.Handled = true;
         }
@@ -467,9 +464,9 @@ namespace InteropTools.ShellPages.Registry
                     HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
                 }
 
-                //var shell = (Shell)App.AppContent;
-                //shell.RootFrame.Navigate(typeof(WelcomePage));
-                //shell.RootFrame.BackStack.Clear();
+                var shell = (Shell)App.AppContent;
+                shell.RootFrame.Navigate(typeof(WelcomePage));
+                shell.RootFrame.BackStack.Clear();
             }
             e.Handled = true;
         }

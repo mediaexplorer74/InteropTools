@@ -7,14 +7,10 @@
     xmlns:local="using:InteropTools.ShellPages.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     NavigationCacheMode="Enabled"
-    
-    mc:Ignorable="d"
-    >
-    <!-- 
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
-    -->
+    mc:Ignorable="d">
 
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer Padding="{x:Bind Frame.Padding, Mode=OneWay}" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <TextBlock
@@ -48,7 +44,7 @@
                 <StackPanel Margin="0,0,0,24">
                     <TextBlock
                         Text="REMOTE ACCESS"
-                        Style="{StaticResource HeaderTextBlockStyle}" />
+                        Style="{StaticResource TitleTextBlockStyle3}" />
                     <TextBox
                     x:Name="PortNumber"
                     x:Uid="Port"
@@ -77,7 +73,7 @@
                     </Grid>
                 </StackPanel>
 
-                <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="PERSONALIZATION" />
+                <TextBlock Style="{StaticResource TitleTextBlockStyle3}" Text="PERSONALIZATION" />
 
                 <ComboBox
                     Margin="0,0,0,24"
@@ -144,13 +140,13 @@
                     </GridView>
 
                     <TextBlock Margin="0,0,0,2" Text="Choose a custom accent color" Visibility="{x:Bind PaletteRadio.IsChecked, Mode=OneWay, Converter={StaticResource FalseToVisibleConverter}}"/>
-                    <!--controls:ColorPicker Margin="0,0,0,24" x:Name="ColorPicker" ColorChanged="ColorPicker_ColorChanged" IsMoreButtonVisible="True" Visibility="{x:Bind PaletteRadio.IsChecked, Mode=OneWay, Converter={StaticResource FalseToVisibleConverter}}" HorizontalAlignment="Left"/-->
+                    <controls:ColorPicker Margin="0,0,0,24" x:Name="ColorPicker" ColorChanged="ColorPicker_ColorChanged" IsMoreButtonVisible="True" Visibility="{x:Bind PaletteRadio.IsChecked, Mode=OneWay, Converter={StaticResource FalseToVisibleConverter}}" HorizontalAlignment="Left"/>
                 </StackPanel>
 
                 <StackPanel Margin="0,0,0,24">
                     <TextBlock
                         Text="ABOUT"
-                        Style="{StaticResource HeaderTextBlockStyle}"
+                        Style="{StaticResource TitleTextBlockStyle3}"
                         TextWrapping="Wrap"/>
 
                     <Grid>
@@ -230,7 +226,7 @@
 
 
                     <TextBlock
-                        Style="{StaticResource HeaderTextBlockStyle}"
+                        Style="{StaticResource TitleTextBlockStyle3}"
                         Text="CREDITS" />
                     <TextBlock
                         HorizontalAlignment="Stretch"

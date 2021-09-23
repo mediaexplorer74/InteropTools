@@ -98,8 +98,7 @@ namespace InteropTools.ShellPages.AppManager
             try
             {
                 var selectedItem = (Item)e.ClickedItem;
-                
-                //(App.AppContent as Shell).RootFrame.Navigate(typeof(AppProductPage), selectedItem.FullName);
+                (App.AppContent as Shell).RootFrame.Navigate(typeof(AppProductPage), selectedItem.FullName);
             }
             catch
             {

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4" xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" IgnorableNamespaces="uap uap3 uap4 uap5 mp">
-  <Identity Name="52346ITDevTeam.InteropToolsStore" Publisher="CN=EDCB61F7-02FF-43C6-8E0B-FDE1D2E3E137" Version="2.1.25.0" />
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4" xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10" xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" IgnorableNamespaces="uap uap3 uap4 uap5 mp iot uap2">
+  <Identity Name="ME74.InteropTools2.1.8" Publisher="CN=media" Version="2.1.8.0" />
   <mp:PhoneIdentity PhoneProductId="dafa07a8-fa7c-48de-8079-5baeda981649" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Interop Tools (Store)</DisplayName>
-    <PublisherDisplayName>IT Dev Team</PublisherDisplayName>
+    <DisplayName>Interop Tools 2</DisplayName>
+    <PublisherDisplayName>mediaexplorer</PublisherDisplayName>
     <Logo>Assets\Tiles\App\NewStoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="InteropTools.App">
-      <uap:VisualElements DisplayName="Interop Tools (Store)" Square150x150Logo="Assets\Tiles\App\Square150x150Logo.png" Square44x44Logo="Assets\Tiles\App\Square44x44Logo.png" Description="Interop Tools" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="InteropTools 2.1.8" Square150x150Logo="Assets\Tiles\App\Square150x150Logo.png" Square44x44Logo="Assets\Tiles\App\Square44x44Logo.png" Description="Interop Tools" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Tiles\App\Wide310x150Logo.png" Square310x310Logo="Assets\Tiles\App\Square310x310Logo.png" Square71x71Logo="Assets\Tiles\App\Square71x71Logo.png" ShortName="Interop Tools">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />
@@ -24,8 +24,25 @@
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\Tiles\App\SplashScreen.png" BackgroundColor="#000000" uap5:Optional="true" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="portrait" />
+          <uap:Rotation Preference="landscape" />
+          <uap:Rotation Preference="landscapeFlipped" />
+        </uap:InitialRotationPreference>
       </uap:VisualElements>
       <Extensions>
+        <!--<uap5:Extension Category="windows.appExecutionAlias" Executable="InteropTools.exe" EntryPoint="InteropTools.App">
+          <uap5:AppExecutionAlias>
+            <uap5:ExecutionAlias Alias="InteropTools.exe" />
+          </uap5:AppExecutionAlias>
+        </uap5:Extension>-->
+        <uap3:Extension Category="windows.appExtension">
+          <uap3:AppExtension Name="InteropTools.External.AppExtensibility" Id="AppExtensibility" DisplayName="Interop Tools (Preview)" Description="Interop Tools" PublicFolder="Assets">
+            <uap3:Properties>
+              <Service>AppExtensibilityService</Service>
+            </uap3:Properties>
+          </uap3:AppExtension>
+        </uap3:Extension>
         <uap3:Extension Category="windows.appExtensionHost">
           <uap3:AppExtensionHost>
             <uap3:Name>InteropTools.Providers.Applications</uap3:Name>
@@ -58,18 +75,6 @@
             <uap:DisplayName>Interop Tools URI Scheme</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
-        <!--<uap5:Extension Category="windows.appExecutionAlias" Executable="InteropTools.exe" EntryPoint="InteropTools.App">
-          <uap5:AppExecutionAlias>
-            <uap5:ExecutionAlias Alias="InteropTools.exe" />
-          </uap5:AppExecutionAlias>
-        </uap5:Extension>-->
-        <uap3:Extension Category="windows.appExtension">
-          <uap3:AppExtension Name="InteropTools.External.AppExtensibility" Id="AppExtensibility" DisplayName="Interop Tools (Preview)" Description="Interop Tools" PublicFolder="Assets">
-            <uap3:Properties>
-              <Service>AppExtensibilityService</Service>
-            </uap3:Properties>
-          </uap3:AppExtension>
-        </uap3:Extension>
       </Extensions>
     </Application>
   </Applications>
@@ -77,6 +82,24 @@
     <Capability Name="internetClient" />
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
+    <Capability Name="codeGeneration" />
     <uap:Capability Name="userAccountInformation" />
+    <iot:Capability Name="systemManagement" />
+    <uap3:Capability Name="remoteSystem" />
+    <uap:Capability Name="objects3D" />
+    <uap:Capability Name="phoneCall" />
+    <uap:Capability Name="removableStorage" />
+    <uap2:Capability Name="spatialPerception" />
+    <uap:Capability Name="sharedUserCertificates" />
+    <iot:Capability Name="lowLevelDevices" />
+    <uap:Capability Name="enterpriseAuthentication" />
+    <uap4:Capability Name="userDataTasks" />
+    <uap4:Capability Name="offlineMapsManagement" />
+    <uap:Capability Name="videosLibrary" />
+    <uap:Capability Name="picturesLibrary" />
+    <uap:Capability Name="musicLibrary" />
+    <DeviceCapability Name="pointOfService" />
+    <DeviceCapability Name="location" />
+    <DeviceCapability Name="proximity" />
   </Capabilities>
 </Package>

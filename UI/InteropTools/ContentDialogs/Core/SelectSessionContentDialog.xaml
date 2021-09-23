@@ -6,15 +6,12 @@
     xmlns:local="using:InteropTools.ContentDialogs.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Uid="Select_Session"
-    Title="TITLE"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
-    
+    Style="{StaticResource ResourceKey=MyContentDialogControlTemplate}"
     mc:Ignorable="d">
 
-    <!-- Style="{StaticResource ResourceKey=MyContentDialogControlTemplate}" -->
-
-     <ScrollViewer
+    <ScrollViewer
         Margin="0,16,0,0"
         VerticalScrollBarVisibility="Auto"
         VerticalScrollMode="Auto">

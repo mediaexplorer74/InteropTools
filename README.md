@@ -1,12 +1,13 @@
 # InteropTools
 
-Technical version 2.2 
+Technical version 2.1.8 
 
 Fork of famous InteropTools project (by Gus33000) , branch 2.1.7
 
 
 # Screenshots
 ![Shot 1](https://github.com/mediaexplorer74/InteropTools/blob/master/shot1.png)
+![Shot 2](https://github.com/mediaexplorer74/InteropTools/blob/master/shot2.png)
 
 
 # Requirenments
@@ -48,5 +49,5 @@ I wanted to put down some thank you's here for folks/projects/websites that were
 
 # License & Copyright
 
-InteropTools 2.2 is RnD project only. AS-IS. No support. Distributed under the MIT License.  
+InteropTools 2.1.8 is RnD project only. AS-IS. No support. Distributed under the MIT License.  
 

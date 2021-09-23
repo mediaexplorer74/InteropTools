@@ -12,7 +12,10 @@ namespace RegistryHelper
 
         public CRegistryHelper()
         {
+#if ARM
             providers.Add(new RegistryRTProvider());
+#endif
+
 #if !STORE
             providers.Add(new DevProgramProvider());
             providers.Add(new WinPRTUtilsProvider());

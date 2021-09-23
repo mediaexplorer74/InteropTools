@@ -10,10 +10,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using InteropTools.Providers;
 using Windows.ApplicationModel.Resources.Core;
-
-//using Shell = InteropTools.CorePages.Shell;
-using Shell = InteropTools.Shell;
-
+using Shell = InteropTools.CorePages.Shell;
 using System.Text.RegularExpressions;
 
 

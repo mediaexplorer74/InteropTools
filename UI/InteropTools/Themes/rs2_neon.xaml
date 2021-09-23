@@ -8,10 +8,10 @@
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
-            <!--media:AcrylicBrush x:Key="ApplicationPageBackgroundThemeBrush" BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeBlackHighColor}" TintOpacity="0.8" FallbackColor="{ThemeResource SystemChromeBlackLowColor}" /-->
+            <media:AcrylicBrush x:Key="ApplicationPageBackgroundThemeBrush" BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeBlackHighColor}" TintOpacity="0.8" FallbackColor="{ThemeResource SystemChromeBlackLowColor}" />
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
-            <!--media:AcrylicBrush x:Key="ApplicationPageBackgroundThemeBrush" BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeWhiteColor}" TintOpacity="0.8" FallbackColor="{ThemeResource SystemChromeWhiteColor}" /-->
+            <media:AcrylicBrush x:Key="ApplicationPageBackgroundThemeBrush" BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeWhiteColor}" TintOpacity="0.8" FallbackColor="{ThemeResource SystemChromeWhiteColor}" />
         </ResourceDictionary>
         <ResourceDictionary x:Key="HighContrast">
             
@@ -61,7 +61,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <!--
+
     <media:AcrylicBrush x:Key="SystemAcrylicWindowAccentBrush" BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemAccentColor}" TintOpacity="0.7" FallbackColor="{ThemeResource SystemAccentColor}" />
 
     <media:AcrylicBrush x:Key="SystemAcrylicWindowChromeLowBrush" BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeLowColor}" TintOpacity="0.8" FallbackColor="{ThemeResource SystemChromeLowColor}" />
@@ -69,7 +69,6 @@
     <media:AcrylicBrush x:Key="SystemAcrylicWindowChromeMediumBrush2" BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeMediumColor}" TintOpacity="0.7" FallbackColor="{ThemeResource SystemChromeMediumColor}" />
     <media:AcrylicBrush x:Key="SystemAcrylicContentChromeMediumBrush" BackgroundSource="Backdrop" TintColor="{ThemeResource SystemChromeMediumColor}" TintOpacity="0.6" FallbackColor="{ThemeResource SystemChromeMediumColor}" />
 
-     -->
     <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemRevealStyle}" />
     <Style TargetType="Button" BasedOn="{StaticResource ButtonRevealStyle}" />
     <Style TargetType="RepeatButton" BasedOn="{StaticResource RepeatButtonRevealStyle}" />
@@ -345,7 +344,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
 
-                    <!--controls:RevealListViewItemPresenter
+                    <controls:RevealListViewItemPresenter
                             ContentTransitions="{TemplateBinding ContentTransitions}"
                             Control.IsTemplateFocusTarget="True"
                             SelectionCheckMarkVisualEnabled="{ThemeResource ListViewItemSelectionCheckMarkVisualEnabled}"
@@ -369,7 +368,7 @@
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             ContentMargin="{TemplateBinding Padding}"
-                            CheckMode="{ThemeResource ListViewItemCheckMode}" /-->
+                            CheckMode="{ThemeResource ListViewItemCheckMode}" />
 
                 </ControlTemplate>
             </Setter.Value>
@@ -385,7 +384,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
-                    <!--controls:RevealListViewItemPresenter
+                    <controls:RevealListViewItemPresenter
                                             Padding="0"
                                             ContentTransitions="{TemplateBinding ContentTransitions}"
                                             Control.IsTemplateFocusTarget="True"
@@ -410,7 +409,7 @@
                                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                             CheckMode="{ThemeResource ListViewItemCheckMode}"
-                                            ContentMargin="20,0" /-->
+                                            ContentMargin="20,0" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

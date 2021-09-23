@@ -10,10 +10,8 @@
     PrimaryButtonText="Yes"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
     SecondaryButtonText="No"
-   
+    Style="{StaticResource ResourceKey=MyContentDialogControlTemplate}"
     mc:Ignorable="d">
 
     <TextBlock x:Name="Description" TextWrapping="Wrap" />
 </ContentDialog>
-
-<!--  Style="{StaticResource ResourceKey=MyContentDialogControlTemplate}" -->

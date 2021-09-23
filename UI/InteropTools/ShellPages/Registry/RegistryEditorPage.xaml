@@ -152,7 +152,7 @@
                             Style="{StaticResource TitleTextBlockStyle}"
                             Text="Registry Editor"
                             Visibility="{Binding PageTitleVisibility}" />
-                        <TextBlock Text="REGISTRY HIVE" Style="{StaticResource HeaderTextBlockStyle}" />
+                        <TextBlock Text="REGISTRY HIVE" Style="{StaticResource TitleTextBlockStyle3}" />
                         <ComboBox Margin="0,0,0,24"
                             x:Name="HiveSelector"
                             HorizontalAlignment="Stretch"
@@ -166,7 +166,7 @@
                             <ComboBoxItem Content="HKEY_PERFORMANCE_DATA (HKPD)" />
                             <ComboBoxItem Content="HKEY_USERS (HKU)" />
                         </ComboBox>
-                        <TextBlock Text="REGISTRY KEY PATH" Style="{StaticResource HeaderTextBlockStyle}" />
+                        <TextBlock Text="REGISTRY KEY PATH" Style="{StaticResource TitleTextBlockStyle3}" />
                         <Grid HorizontalAlignment="Stretch" Margin="0,0,0,24">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -198,7 +198,7 @@
                                     Symbol="Cancel" />
                             </Button>
                         </Grid>
-                        <TextBlock Text="REGISTRY VALUE NAME" Style="{StaticResource HeaderTextBlockStyle}" />
+                        <TextBlock Text="REGISTRY VALUE NAME" Style="{StaticResource TitleTextBlockStyle3}" />
                         <ComboBox
                             x:Name="ValueNameSelector"
                             HorizontalAlignment="Stretch"
@@ -217,7 +217,7 @@
                             PlaceholderText="Example: CurrentBuild"
                             TextChanging="ValueNameInput_TextChanging"
                             />
-                        <TextBlock Text="REGISTRY VALUE TYPE" Style="{StaticResource HeaderTextBlockStyle}" />
+                        <TextBlock Text="REGISTRY VALUE TYPE" Style="{StaticResource TitleTextBlockStyle3}" />
                         <StackPanel Margin="0,0,0,24">
                             <ComboBox
                                 x:Name="TypeSelector"
@@ -249,7 +249,7 @@
                                 Visibility="Collapsed"
                                 />
                         </StackPanel>
-                        <TextBlock Text="REGISTRY VALUE DATA" Style="{StaticResource HeaderTextBlockStyle}" />
+                        <TextBlock Text="REGISTRY VALUE DATA" Style="{StaticResource TitleTextBlockStyle3}" />
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -309,7 +309,7 @@
                                 Grid.Column="0"
                                 Margin="0"
                                 VerticalAlignment="Center"
-                                Style="{StaticResource HeaderTextBlockStyle}"
+                                Style="{StaticResource TitleTextBlockStyle3}"
                                 Text="HISTORY" />
                             <HyperlinkButton
                                 x:Name="ClearHistoryLink"

@@ -23,28 +23,23 @@ namespace InteropTools.RemoteClasses.Server
 				var allowed = false;
 				var denied = false;
 
-				// TODO
 				foreach (var item in App.AllowedRemotes)
-				{
-					//if (string.Equals(item.Hostname, hostname, StringComparison.CurrentCultureIgnoreCase))
-					//{
-					//	if (string.Equals(item.SessionID, data.SessionID, StringComparison.CurrentCultureIgnoreCase))
-					//	{
-					//		allowed = true;
-					//	}
-					//}
-				}
+					if (string.Equals(item.Hostname, hostname, StringComparison.CurrentCultureIgnoreCase))
+					{
+						if (string.Equals(item.SessionID, data.SessionID, StringComparison.CurrentCultureIgnoreCase))
+						{
+							allowed = true;
+						}
+					}
 
 				foreach (var item in App.DeniedRemotes)
-				{
-					//if (string.Equals(item.Hostname, hostname, StringComparison.CurrentCultureIgnoreCase))
-					//{
-					//	if (string.Equals(item.SessionID, data.SessionID, StringComparison.CurrentCultureIgnoreCase))
-					//	{
-					//		denied = true;
-					//	}
-					//}
-				}
+					if (string.Equals(item.Hostname, hostname, StringComparison.CurrentCultureIgnoreCase))
+					{
+						if (string.Equals(item.SessionID, data.SessionID, StringComparison.CurrentCultureIgnoreCase))
+						{
+							denied = true;
+						}
+					}
 
 				if (!allowed)
 				{
@@ -59,13 +54,13 @@ namespace InteropTools.RemoteClasses.Server
 
 								if (result)
 								{
-									//App.AllowedRemotes.Add(new App.Remote { Hostname = hostname, SessionID = data.SessionID });
+									App.AllowedRemotes.Add(new App.Remote { Hostname = hostname, SessionID = data.SessionID });
 									allowed = true;
 								}
 
 								else
 								{
-									//App.DeniedRemotes.Add(new App.Remote { Hostname = hostname, SessionID = data.SessionID });
+									App.DeniedRemotes.Add(new App.Remote { Hostname = hostname, SessionID = data.SessionID });
 								}
 							});
 

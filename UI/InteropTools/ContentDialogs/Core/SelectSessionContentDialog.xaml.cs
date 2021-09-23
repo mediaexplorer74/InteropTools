@@ -18,14 +18,13 @@ namespace InteropTools.ContentDialogs.Core
 		public SelectSessionContentDialog()
 		{
 			InitializeComponent();
-			
-			//SessionList.ItemsSource = Sessions.Select(x => new DisplayItem(x));
+			SessionList.ItemsSource = Sessions.Select(x => new DisplayItem(x));
 		}
 
 		private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
 		{
 			Hide();
-			//AddNewSession("");
+			AddNewSession("");
 		}
 
 		private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -35,13 +34,11 @@ namespace InteropTools.ContentDialogs.Core
 		private void SessionList_ItemClick(object sender, ItemClickEventArgs e)
 		{
 			Hide();
-			
-			//SwitchSession(((DisplayItem) e.ClickedItem).session);
+			SwitchSession(((DisplayItem) e.ClickedItem).session);
 		}
 
 		public class DisplayItem
 		{
-			/*
 			public DisplayItem(Session session)
 			{
 				this.session = session;
@@ -96,7 +93,6 @@ namespace InteropTools.ContentDialogs.Core
 
 			public Visibility PreviewVisibility
 			{
-				
 				get
 				{
 					if (Sessions[(int)CurrentSession] == session)
@@ -106,11 +102,9 @@ namespace InteropTools.ContentDialogs.Core
 
 					return Visibility.Visible;
 				}
-				
 			}
-			*/
 
-			//public Session session { get; internal set; }
+			public Session session { get; internal set; }
 		}
         
 		private async void Test()

@@ -1,5 +1,4 @@
-﻿// OLD SCHEME
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using Windows.ApplicationModel;
 using Windows.System;
@@ -8,34 +7,13 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.ViewManagement;
-
-//using Shell = InteropTools.CorePages.Shell;
-using Shell = InteropTools.Shell;
-
+using Shell = InteropTools.CorePages.Shell;
 using InteropTools.Classes;
 
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.System.Profile;
 using Intense.Presentation;
 using InteropTools.CorePages;
-
-//NEW SCHEME
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using InteropTools.Handlers;
-
-
-
 
 namespace InteropTools.ShellPages.Core
 {
@@ -44,13 +22,10 @@ namespace InteropTools.ShellPages.Core
         public string PageName => "Welcome";
         public PageGroup PageGroup => PageGroup.Core;
 
-		// constructor
         public WelcomePage()
 		{
             InitializeComponent();
-
-			// OLD SCHEME
-            //Refresh();
+            Refresh();
 
             /*if (Microsoft.Services.Store.Engagement.StoreServicesFeedbackLauncher.IsSupported())
             {
@@ -58,32 +33,13 @@ namespace InteropTools.ShellPages.Core
                 this.FeedbackButtonList2.Visibility = Visibility.Visible;
             }*/
 
-            //Loaded += WelcomePage_Loaded;
-            //SizeChanged += WelcomePage_SizeChanged;
+            Loaded += WelcomePage_Loaded;
+            SizeChanged += WelcomePage_SizeChanged;
 
             OSVersion.Text = DeviceInfo.Instance.SystemVersion;
             DeviceFamily.Text = DeviceInfo.Instance.DeviceFamily.Replace(".", " ");
             AppVersion.Text = Package.Current.Id.Version.Major + "." + Package.Current.Id.Version.Minor + "." + Package.Current.Id.Version.Build + "." + Package.Current.Id.Version.Revision;
-
-			// NEW
-
-			this.InitializeComponent();
-			SizeChanged += WelcomePage_SizeChanged;
-
-			if (Window.Current.Bounds.Width >= 720)
-			{
-				//TODO
-				//this.SetExtended(HeaderBackground, false, true, true, false);
-			}
-			else
-			{
-				//TODO
-				//this.SetExtended(HeaderBackground, false, false, false, false);
-			}
-
-
-
-		}
+        }
 
         private void WelcomePage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -97,16 +53,16 @@ namespace InteropTools.ShellPages.Core
 
         private void Refresh()
 		{
-			//var shell = (Shell)App.AppContent;
-			//var vm = shell.ViewModel;
-			//GridView2.ItemsSource = ((Shell)App.AppContent).recentitems5max;
+			var shell = (Shell)App.AppContent;
+			var vm = shell.ViewModel;
+			GridView2.ItemsSource = ((Shell)App.AppContent).recentitems5max;
 		}
 
 		private void GridView_ItemClick(object sender, ItemClickEventArgs e)
 		{
-			//var page = ((NavigationItem) e.ClickedItem).PageType;
-			//var shell = (Shell) App.AppContent;
-			//shell.RootFrame.Navigate(page);
+			var page = ((NavigationItem) e.ClickedItem).PageType;
+			var shell = (Shell) App.AppContent;
+			shell.RootFrame.Navigate(page);
 		}
 
 		private void StackPanel_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -155,7 +111,6 @@ namespace InteropTools.ShellPages.Core
 
 		private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
 		{
-			/*
 			if (GridView2.ItemsSource == ((Shell)App.AppContent).recentitems5max)
 			{
 				GridView2.ItemsSource = ((Shell)App.AppContent).recentitems;
@@ -167,7 +122,6 @@ namespace InteropTools.ShellPages.Core
 				GridView2.ItemsSource = ((Shell)App.AppContent).recentitems5max;
 				ViewMoreRecent.Content = "See more items";
 			}
-			*/
 		}
 
         private async void FeedbackButtonList_Click(object sender, RoutedEventArgs e)

@@ -4,10 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using InteropTools.ContentDialogs.Registry;
 using InteropTools.ShellPages.Core;
-
-//using Shell = InteropTools.CorePages.Shell;
-using Shell = InteropTools.Shell;
-
+using Shell = InteropTools.CorePages.Shell;
 using InteropTools.CorePages;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -49,15 +46,15 @@ namespace InteropTools.ShellPages.Registry
 				await new ImportRegContentDialog(file).ShowAsync();
 			}
 
-			//var shell = App.AppContent as Shell;
-            //try
-            //{
-            //    shell.RootFrame.GoBack();
-            //}
-            //catch
-            //{
+			var shell = App.AppContent as Shell;
+            try
+            {
+                shell.RootFrame.GoBack();
+            }
+            catch
+            {
                 return;
-            //}
+            }
         }
 	}
 }

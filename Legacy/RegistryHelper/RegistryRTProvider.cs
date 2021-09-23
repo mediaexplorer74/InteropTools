@@ -1,5 +1,4 @@
-﻿using RegistryRT;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,13 +6,20 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
+#if ARM
+using RegistryRT;
+#endif
+
+
 namespace RegistryHelper
 {
+#if ARM
     public sealed class RegistryRTProvider : IRegistryProvider
     {
+
         Registry helper = new Registry();
 
-        private static Dictionary<REG_HIVES, RegistryHive> _hives = new Dictionary<REG_HIVES, RegistryHive>
+    private static Dictionary<REG_HIVES, RegistryHive> _hives = new Dictionary<REG_HIVES, RegistryHive>
         {
             { REG_HIVES.HKEY_CLASSES_ROOT, RegistryHive.HKEY_CLASSES_ROOT },
             { REG_HIVES.HKEY_CURRENT_USER, RegistryHive.HKEY_CURRENT_USER },
@@ -589,4 +595,6 @@ namespace RegistryHelper
             }
         }
     }
+#endif
+
 }

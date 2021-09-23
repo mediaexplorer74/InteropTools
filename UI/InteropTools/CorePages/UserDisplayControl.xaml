@@ -8,14 +8,9 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
-   
-    >
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls">
 
-    <!--
-     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
-    -->
-
-        <Grid
+    <Grid
                                     Height="48"
                                     MinWidth="0"
                                     MinHeight="0"
@@ -24,8 +19,7 @@
             <ColumnDefinition Width="48" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <!--controls:PersonPicture Height="24" Width="24" x:Name="PicImage"/-->
-            
+        <controls:PersonPicture Height="24" Width="24" x:Name="PicImage"/>
         <Grid Width="48" Height="48" Visibility="Collapsed">
             <Border x:Name="Image" HorizontalAlignment="Center" Background="Gray" CornerRadius="45" Width="24" Height="24" Grid.Column="0"/>
         </Grid>
