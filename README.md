@@ -6,7 +6,7 @@ Fork of famous InteropTools project (by Gus33000) , branch 2.1.7
 
 
 # Screenshots
-![Shot 1](https://github.com/mediaexplorer74/InteropTools/blob/main/shot1.png)
+![Shot 1](https://github.com/mediaexplorer74/InteropTools/blob/master/shot1.png)
 
 
 # Requirenments
